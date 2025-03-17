@@ -1,8 +1,11 @@
 import operations
-import ui
 
-def main():
-    x, y, operation = ui.get_input()
+
+def calculate(x, y, operation):
+
+    #print(f"Received operation: {operation}")              Debugging   
+    #print(f"x: {x}, y: {y}, operation: {operation}")       Debugging
+
 
     if operation == "+":
         result = operations.addition.add(x, y)
@@ -15,7 +18,4 @@ def main():
     else:
         result = "Invalid operation"
 
-    ui.display_result(result)
-
-if __name__ == "__main__":
-    main()
+    return result
