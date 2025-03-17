@@ -1,87 +1,99 @@
-# Simple Calculator Docker Image
+# Flask Calculator with Docker
 
-This repository contains a Dockerized simple calculator application written in Python. The calculator supports basic arithmetic operations: addition, subtraction, multiplication, and division.
+## Overview
+
+This is a simple **Flask-based calculator** application that provides a web interface for basic arithmetic operations. It is designed as a modular Python package and is containerized using Docker.
+
+## Features
+
+- Addition, subtraction, multiplication, and division
+- Flask-based web frontend
+- Modular Python structure
+- Dockerized for easy deployment
+
+## Project Structure
+
+```
+FlaskCalculatorDocker_19.8.24/
+│-- app/
+│   │-- app.py                 # Flask application entry point
+│   │-- Dockerfile            # Docker configuration file
+│   │-- requirements.txt      # List of dependencies
+│   │-- templates/
+│   │   ├── index.html       # HTML template for the calculator UI
+│   │-- main.py                # Core calculator logic
+│   ├── operations/
+│   │   ├── __init__.py      # Package initializer
+│   │   ├── addition.py
+│   │   ├── subtraction.py
+│   │   ├── multiplication.py
+│   │   ├── division.py
+```
+
+## Installation & Usage
+
+### 1️⃣ Running the App Locally (Without Docker)
+
+#### Prerequisites:
+
+- Python 3.8+
+- `pip` installed
+
+#### Steps:
+
+1. Clone the repository:
+   ```sh
+   git clone <repo_url>
+   cd FlaskCalculatorDocker_19.8.24/app
+   ```
+2. Create a virtual environment (recommended):
+   ```sh
+   python -m venv venv
+   source venv/bin/activate  # On Windows use: venv\Scripts\activate
+   ```
+3. Install dependencies:
+   ```sh
+   pip install -r requirements.txt
+   ```
+4. Run the Flask app:
+   ```sh
+   python app.py
+   ```
+5. Open **`http://127.0.0.1:5000/`** in your browser.
 
 ---
 
-## **Features**
-- Basic arithmetic operations: `+`, `-`, `*`, `/`.
-- Interactive input for numbers and operations.
-- Dockerized for easy deployment and testing.
+### 2️⃣ Running the App with Docker
+
+#### Prerequisites:
+
+- Docker installed
+
+#### Steps:
+
+1. Build the Docker image:
+   ```sh
+   docker build -t flask-calculator .
+   ```
+2. Run the container:
+   ```sh
+   docker run -p 5000:5000 flask-calculator
+   ```
+3. Open **`http://127.0.0.1:5000/`** in your browser.
 
 ---
 
-## **Prerequisites**
-- Docker installed on your system. [Install Docker](https://docs.docker.com/get-docker/)
+## API Routes
 
+- \*\*GET \*\***`/`** → Renders the calculator UI
+- \*\*POST \*\***`/calculate`** → Performs the selected arithmetic operation
 
-## **How to Use**
+---
 
-### **1. Build the Docker Image**
-Clone this repository and navigate to the project directory:
-```bash
-git clone https://github.com/ChristinaScott/Calculator_19.8.24.git
-cd Calculator_19.8.24
-```
+## Notes
 
-Build the Docker image:
-```bash
-docker build -t calc-image:v1.0 .
-```
-### **2. Run the Docker Container**
-Run the container in interactive mode:
-```bash 
-docker run -it calc-image:v1.0 
-```
+- If the app is not accessible in Docker, ensure `app.run(host="0.0.0.0", debug=True)` is set in `app.py`.
+- If modifying the app, rebuild the Docker image before running again.
 
-You will be prompted to enter two numbers and select an operation:
-```bash 
-Enter the first number: 10
-Enter the second number: 5
-Select operation (+, -, *, /): +
-Result: 15.0
-```
-
-### **3. Run with Command-Line Arguments (Optional)**
-```bash 
-docker run calc-image:v1.0 python app/main.py 10 5 +
-```
-
-
-## **Project Structure**
-```
-calculator_19.08.24/
-├── app/
-│   ├── main.py            # Main script for the calculator
-│   ├── ui.py              # Handles user input and output
-│   └── operations/        # Contains arithmetic operation functions
-│       ├── addition.py
-│       ├── subtraction.py
-│       ├── multiplication.py
-│       └── division.py
-├── requirements.txt       # Python dependencies
-├── Dockerfile             # Docker configuration
-└── README.md              # This file
-```
-
-## **Dockerfile**
-
-### This simple `Dockerfile`  sets up the environment and runs the calclator application:
-
-```Dockerfile 
-# Use an official Python runtime as the base image
-FROM python:3.9-slim
-
-# Set the working directory inside the container
-WORKDIR /app
-
-# Copy the rest of the application code
-COPY . .
-
-# Define the command to run the calculator
-CMD ["python", "app/main.py"]
-```
-
-## **License**
-This project is licensed under the MIT License. See the <span style="color:blue">LICENSE</span> file for details.
+Enjoy calculating! 🧮🎉
 
